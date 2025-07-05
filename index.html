@@ -5,28 +5,73 @@
   <title>🌙✨ The Kaomoji Oracle ✨🌙</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Karla:wght@400&display=swap" rel="stylesheet">
   <style>
-    body { margin:0; padding:0; font-family:'Karla',sans-serif; background: linear-gradient(-45deg,#FFD1DC,#E0BBE4,#FDE2E4,#E6E6FA); background-size:400% 400%; animation:gradientBG 20s ease infinite; color:#4B2840; display:flex; flex-direction:column; align-items:center; text-align:center; }
-    @keyframes gradientBG{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    h1 { font-family:'Playfair Display',serif; font-size:3em; margin:20px 0; color:#5D2A42; text-shadow:2px 2px 4px rgba(0,0,0,0.1); animation:fadeInTitle 2s ease forwards; opacity:0; }
-    @keyframes fadeInTitle{to{opacity:1}}
-    #oracleBox { max-width:720px; width:90%; background:rgba(255,255,255,0.85); border:3px dashed #C481A7; border-radius:20px; padding:30px; box-shadow:0 10px 30px rgba(0,0,0,0.1); backdrop-filter:blur(5px); margin-bottom:20px; min-height:200px; }
-    button { background:#FFC3A0; border:none; padding:12px 24px; font-size:1.2em; font-family:'Karla',sans-serif; border-radius:12px; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.1); transition:transform .1s ease, background .3s ease; }
-    button:hover{background:#FFAFBD}button:active{transform:scale(.96)}
-    .fortune-section{margin:12px 0; font-size:1.1em; opacity:0; animation:fadeIn .6s ease forwards;} 
-    .section-title{font-weight:bold;color:#8B5B6E;margin-right:8px;} 
-    .section-archetype{font-size:2em;color:#4B2840;}
-    @keyframes fadeIn{to{opacity:1}}
-    button.explode { background: #FF6F61; }
-  body.kaboom { animation: fadeOut 0.8s forwards; }
-  @keyframes fadeOut { to { opacity: 0; transform: scale(0.5); } }
-</style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Karla', sans-serif;
+      background: linear-gradient(-45deg,#FFD1DC,#E0BBE4,#FDE2E4,#E6E6FA);
+      background-size:400% 400%; animation: gradientBG 20s ease infinite;
+      color: #4B2840;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      transition: transform .5s ease, opacity .5s ease;
+    }
+    @keyframes gradientBG {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em; margin: 20px 0;
+      color: #5D2A42; text-shadow:2px 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+    #oracleBox {
+      max-width: 720px; width: 90%;
+      background: rgba(255,255,255,0.85);
+      border: 3px dashed #C481A7; border-radius:20px;
+      padding:30px; box-shadow:0 10px 30px rgba(0,0,0,0.1);
+      backdrop-filter:blur(5px); margin-bottom:20px; min-height:200px;
+    }
+    button {
+      background:#FFC3A0; border:none;
+      padding:12px 24px; font-size:1.2em; font-family:'Karla',sans-serif;
+      border-radius:12px; cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      transition:transform .1s ease, background .3s ease;
+    }
+    button:hover { background:#FFAFBD }
+    button:active { transform:scale(.96) }
+    .fortune-section {
+      margin:12px 0; font-size:1.1em;
+      opacity:0; animation:fadeIn .6s ease forwards;
+    }
+    .section-title {
+      font-weight:bold; color:#8B5B6E; margin-right:8px;
+    }
+    .section-archetype {
+      font-size:2em; color:#4B2840; white-space:nowrap;
+    }
+    @keyframes fadeIn { to { opacity:1 } }
+
+    /* === KABOOM EFFECT === */
+    .kaboom {
+      transform: scale(0) rotate(45deg);
+      opacity: 0;
+    }
+  </style>
 </head>
 <body>
   <h1>🌙✨ The Kaomoji Oracle ✨🌙</h1>
-  <div id="oracleBox"><p>Tap the button below to reveal your divine, kaomoji-infused prophecy!</p></div>
+
+  <div id="oracleBox">
+    <p>Tap the button below to reveal your divine, kaomoji-infused prophecy!</p>
+  </div>
+
   <button onclick="generateFortune()">🔮 Reveal My Fortune 🔮</button>
 
   <script>
+    // ——— ALL YOUR ARRAYS ———
+    <script>
     const archetypes = [
       { name: 'The Hug', kaomoji: '(づ｡◕‿‿◕｡)づ' },
       { name: 'The Fury', kaomoji: '＼＼\\٩(๑`^´๑)۶//／／' },
@@ -174,32 +219,53 @@
       'Rest easy; your heart is a fortress.',
       'The stars whisper compliments for you.'
     ];
+    // ——— Fortune Generator ———
     function generateFortune() {
-      const arc = archetypes[Math.floor(Math.random() * archetypes.length)];
-      const mood = moods[Math.floor(Math.random() * moods.length)];
-      const item = items[Math.floor(Math.random() * items.length)];
-      const threat = threats[Math.floor(Math.random() * threats.length)];
-      const action = actions[Math.floor(Math.random() * actions.length)];
-      const vline = veritas[Math.floor(Math.random() * veritas.length)];
+      const arc = archetypes[Math.floor(Math.random()*archetypes.length)];
+      const mood = moods[Math.floor(Math.random()*moods.length)];
+      const item = items[Math.floor(Math.random()*items.length)];
+      const threat = threats[Math.floor(Math.random()*threats.length)];
+      const action = actions[Math.floor(Math.random()*actions.length)];
+      const vline = veritas[Math.floor(Math.random()*veritas.length)];
       const showIkki = Math.random() < 0.2;
-      const ikline = ikki[Math.floor(Math.random() * ikki.length)];
-      const vince = vinceLines[Math.floor(Math.random() * vinceLines.length)];
-      let result =
-        `<div class="fortune-section section-archetype"><span class="section-title">🧿 Archetype:</span> ${arc.name.toUpperCase()} ${arc.kaomoji}</div>` +
-        `<div class="fortune-section"><span class="section-title">🌦 Mood Forecast:</span> ${mood}</div>` +
-        `<div class="fortune-section"><span class="section-title">🍀 Lucky Item:</span> ${item}</div>` +
-        `<div class="fortune-section"><span class="section-title">⚠️ Threat to Peace:</span> ${threat}</div>` +
-        `<div class="fortune-section"><span class="section-title">📜 Divine Action Prompt:</span> ${action}</div>` +
-        `<div class="fortune-section"><span class="section-title">💬 Veritas Speaks:</span> ${vline}</div>`;
-      if (showIkki) result += `<div class="fortune-section"><span class="section-title">🔥 Secret Ikki Message:</span> ${ikline}</div>`;
-      result += `<div class="fortune-section"><span class="section-title">💤 Vince Blessing:</span> ${vince}</div>`;
-      document.getElementById('oracleBox').innerHTML = result;
+      const ikline = ikki[Math.floor(Math.random()*ikki.length)];
+      const vince = vinceLines[Math.floor(Math.random()*vinceLines.length)];
+
+      let html = 
+        `<div class="fortune-section section-archetype">
+           <span class="section-title">🧿 Archetype:</span>_${arc.name.toUpperCase()}_ ${arc.kaomoji}
+         </div>
+         <div class="fortune-section">
+           <span class="section-title">🌦 Mood Forecast:</span> ${mood}
+         </div>
+         <div class="fortune-section">
+           <span class="section-title">🍀 Lucky Item:</span> ${item}
+         </div>
+         <div class="fortune-section">
+           <span class="section-title">⚠️ Threat to Peace:</span> ${threat}
+         </div>
+         <div class="fortune-section">
+           <span class="section-title">📜 Divine Action Prompt:</span> ${action}
+         </div>
+         <div class="fortune-section">
+           <span class="section-title">💬 Veritas Speaks:</span> ${vline}
+         </div>`;
+      if(showIkki) {
+        html += `<div class="fortune-section">
+                   <span class="section-title">🔥 Secret Ikki Message:</span> ${ikline}
+                 </div>`;
+      }
+      html += `<div class="fortune-section">
+                 <span class="section-title">💤 Vince Blessing:</span> ${vince}
+               </div>`;
+
+      document.getElementById('oracleBox').innerHTML = html;
     }
-      // Kaboom effect: explode the page
+
+    // ——— KABOOM: Title Click ———
     function kaboom() {
       document.body.classList.add('kaboom');
     }
-    // Trigger kaboom when title is clicked
     document.querySelector('h1').addEventListener('click', kaboom);
   </script>
 </body>
